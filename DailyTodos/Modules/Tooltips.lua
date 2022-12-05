@@ -151,23 +151,23 @@ function DTD_Tooltips:CreateQuestTooltip(parent,id)
 	-- Show other characters
 	tooltip:AddHeader("Other Characters:")
 	tooltip:AddSeparator()
-	for name, info in pairs(DTD_Database.global.character) do
-		local charServer, charFaction = ("|"):split(info)
-		local serverText = ""
-		local tex = QUEST_NOT_COMPLETE
-		if charFaction == "HORDE" then
-			serverText = Crayon:Red(charServer)
-		else
-			serverText = Crayon:Blue(charServer)
-		end
-		if DTD_Database.global.completedQuests[name][id] == true then
-			tex = QUEST_COMPLETE
-		elseif DTD_Database.global.acceptedQuests[name][id] == true then
-			tex = QUEST_ACCEPTED
-		end
+	for name, side in pairs(DTD_Database.realm.side) do
+		if quest['s'] == nil or quest['s'] == side then
+			local tex = QUEST_NOT_COMPLETE
+			local nameText
+			if side == 2 then
+				nameText = Crayon:Red(name)
+			else
+				nameText = Crayon:Blue(name)
+			end
+			if DTD_Database.realm.completedQuests[name][id] then
+				tex = QUEST_COMPLETE
+			elseif DTD_Database.realm.acceptedQuests[name][id] == true then
+				tex = QUEST_ACCEPTED
+			end
 
-		tooltip:AddLine(format(TEXTURE_LINK_FORMAT,tex,12,12,-2)..name.." - "..serverText)
-		
+			tooltip:AddLine(format(TEXTURE_LINK_FORMAT,tex,12,12,-2)..nameText)
+		end
 	end
 	
 	tooltip:AddLine()

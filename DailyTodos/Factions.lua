@@ -1,5 +1,5 @@
 factions = {
-	[12] = {n = 'Ascension',s = 3,q = {1903519}},
+	[10000] = {n = 'Ascension',q = {1903519}},
 	[47] = {n = 'Ironforge',s = 1,q = {14048,14051}},
 	[68] = {n = 'Undercity',s = 2,q = {14058,14059}},
 	[69] = {n = 'Darnassus',s = 1,q = {14054}},

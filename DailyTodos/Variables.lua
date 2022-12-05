@@ -1,8 +1,11 @@
 defaults = {
-	global = {
-		character = {},
+	realm = {
 		completedQuests = {},
-    	acceptedQuests = {},
+		acceptedQuests = {},
+		side = {},
+		dailyHeroic = {},
+		dailyMythic = {},
+		nextReset = 0
 	},
 	profile = {
   		showMinimapIcon = false,
@@ -20,15 +23,10 @@ defaults = {
   			},
   		trackFactionsExpanded = {},
   		----------------------------
-    	dailyheroic = false,
-    	friendly = 1,
-    	enemy = 2,
-    	factionsTracking = {},
+		dailyheroic = false,
+		dailymythic = false,
+		factionsTracking = {},
     	dontTrack = {},
-    	acceptedQuests = {},
-    	completedQuests = {},
-    	acceptedQuests = {},
-    	lastOpenDate = nil,
     	minimapIcon = { -- minimap icon position and visibility
 			hide = true,
 			minimapPos = 220,

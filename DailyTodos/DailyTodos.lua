@@ -130,14 +130,16 @@ local professionQuests = {
 local windowOpen = false
 local tab = 1
 
-local CharacterName, CharacterRealm, CharacterFaction = UnitName("player"), GetRealmName(), string.upper(UnitFactionGroup("player"))
+local CharacterName, CharacterFaction = UnitName("player"), string.upper(UnitFactionGroup("player"))
 
 local QUEST_COMPLETE = "Interface\\RAIDFRAME\\ReadyCheck-Ready.blp"
 local QUEST_ACCEPTED = "Interface\\GossipFrame\\DailyActiveQuestIcon.blp"
 local QUEST_AVAILABLE = "Interface\\GossipFrame\\DailyQuestIcon.blp"
 
-DailyTodos_UpdateInterval = 1.0
-DailyTodos_TimeSinceLastUpdate = 0.0
+local DailyTodos_UpdateInterval = 1.0
+local DailyTodos_TimeSinceLastUpdate = 0.0
+local DailyTodos_Updates = 598
+local DailyTodos_BigUpdate = 600
 
 DTD:RegisterChatCommand("dtd","InitUI")
 DTD:RegisterChatCommand("dailytodo","InitUI")
@@ -173,12 +175,6 @@ function DTD:OnInitialize()
     
     DTD:CreateMinimapButton()
 	
-	-- check if the daily heroic has been completed today
-	local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(262)
-	if doneToday then
-		DTD_Database.profile.completedQuests["dh"] = true
-	end
-	
 	DTD:CreateTrackingFrame()
 end
 
@@ -186,31 +182,22 @@ function DTD:OnEnable()
     -- Called when the addon is enabled
     self:Print("Daily To-Do's enabled. /dtd to configure.")
 	
-	-- Check if it's a new day
-    if DTD_Database.profile.lastOpenDate == nil then
-    	--self:Print("First time opening")
-    elseif DTD_Database.profile.lastOpenDate ~= date("%m/%d/%y") then
-    	--self:Print("First time opening today")
-    	DTD_Database.profile.completedQuests = {}
-    	DTD_Database.profile.acceptedQuests = {}
-    else
-    	--self:Print("Opened already today")
-    end
-    
-    DTD_Database.profile.lastOpenDate = date("%m/%d/%y")
-    
-    -- Check to see if there is a quest completion profile for this character yet
-    if not DTD_Database.global.character[CharacterName] then
-    	DTD_Database.global.character[CharacterName] = (CharacterRealm.."|"..CharacterFaction)
-    	DTD_Database.global.completedQuests[CharacterName] = DTD_Database.profile.completedQuests
-    	DTD_Database.global.acceptedQuests[CharacterName] = DTD_Database.profile.acceptedQuests
+	-- TODO expire completed quests
+
+	-- Check to see if there is a quest completion profile for this character yet
+    if not DTD_Database.realm.side[CharacterName] then
+		if CharacterFaction == 'ALLIANCE' then
+	    	DTD_Database.realm.side[CharacterName] = 1
+		else
+			DTD_Database.realm.side[CharacterName] = 2
+		end
+		DTD_Database.realm.completedQuests[CharacterName] = {}
+		DTD_Database.realm.acceptedQuests[CharacterName] = {}
     end
     
     -- Register quest complete
     self:RegisterEvent("QUEST_ACCEPTED")
     self:RegisterEvent("QUEST_COMPLETE")
-
-    DTD:CheckPlayerData()
 end
 
 -- Objective selection tab
@@ -239,7 +226,23 @@ function DTD:DrawGroup1(container)
     end)
     ScrollFrame:AddChild(DailyHeroicCheckBox)
 
-    local ProfessionsGroup = AceGUI:Create("InlineGroup")
+	local DailyMythicCheckBox = AceGUI:Create("CheckBox")
+    DailyMythicCheckBox:SetLabel("Daily Mythic Dungeon")
+    if DTD_Database.profile.dailymythic then
+        DailyMythicCheckBox:SetValue(DTD_Database.profile.dailymythic)
+    end
+    DailyMythicCheckBox:SetCallback("OnValueChanged", function()
+        DTD_Database.profile.dailymythic = DailyMythicCheckBox:GetValue()
+        DTD:ReloadTrackingFrame()
+    end)
+    ScrollFrame:AddChild(DailyMythicCheckBox)
+
+    local CustomGroup = AceGUI:Create("InlineGroup")
+    CustomGroup:SetTitle("Custom Daily Groups")
+    CustomGroup:SetLayout("Flow")
+    ScrollFrame:AddChild(CustomGroup)
+
+	local ProfessionsGroup = AceGUI:Create("InlineGroup")
     ProfessionsGroup:SetTitle("Profession Dailies")
     ProfessionsGroup:SetLayout("Flow")
     ScrollFrame:AddChild(ProfessionsGroup)
@@ -268,7 +271,7 @@ function DTD:DrawGroup1(container)
     table.sort(sorted_factions)
 	for _, id in ipairs(sorted_factions) do
         local v = factions[id]
-		if v["s"] ~= DTD_Database.profile.enemy then
+		if v["s"] == nil or v['s'] == DTD_Database.realm.side[CharacterName] then
             j = j + 1
 			local i = j
 			cbs["factionCB"..i] = AceGUI:Create("CheckBox")
@@ -282,7 +285,6 @@ function DTD:DrawGroup1(container)
 			-- Register toggle checkback
 			cbs["factionCB"..i]:SetCallback("OnValueChanged",function () 
 				--DTD_Database.profile.factionsTracking[i] = cbs["factionCB"..i]:GetValue()
-				print(id, i, cbs["factionCB"..i]:GetValue())
 				if cbs["factionCB"..i]:GetValue() then
 					DTD_Database.profile.factionsTracking[id] = true
 				else
@@ -295,7 +297,7 @@ function DTD:DrawGroup1(container)
 			end)
 			cbs["factionCB"..i]:SetCallback("OnEnter",function ()
 				GameTooltip:SetOwner(cbs["factionCB"..i].frame, "ANCHOR_CURSOR", 0, 0)
-				if v["s"] == DTD_Database.profile.friendly then
+				if v["s"] == DTD_Database.realm.side[CharacterName] then
 					GameTooltip:AddLine(v["n"],0,1,0)
 					GameTooltip:AddLine(UnitFactionGroup("player"),1,1,1)
 				else
@@ -307,19 +309,23 @@ function DTD:DrawGroup1(container)
 			
 			cbs["factionCB"..i]:SetCallback("OnLeave",function () GameTooltip:Hide() end)
 			
---[[			if factions[i]["category"] == 2 and factions[i]["category2"] ~= nil then						-- Veto if they do not have the appropriate profession
-				if factions[i]["category2"] == 2 then 		-- It's a cooking quest
-					ProfessionsGroup:AddChild(cbs["factionCB"..i])
-				end
-				if factions[i]["category2"] == 1 then		-- It's a fishing quest
-					ProfessionsGroup:AddChild(cbs["factionCB"..i])
-				end
-				if factions[i]["category2"] == 3 then		-- It's a fishing quest
-					ProfessionsGroup:AddChild(cbs["factionCB"..i])
+			if id >= 10000 or id < 10 then
+				if factions[id]["c"] == 2 and factions[id]["c2"] ~= nil then						-- Veto if they do not have the appropriate profession
+					if factions[id]["c2"] == 2 then 		-- It's a cooking quest
+						ProfessionsGroup:AddChild(cbs["factionCB"..i])
+					end
+					if factions[id]["c2"] == 1 then		-- It's a fishing quest
+						ProfessionsGroup:AddChild(cbs["factionCB"..i])
+					end
+					if factions[id]["c2"] == 3 then		-- It's a fishing quest
+						ProfessionsGroup:AddChild(cbs["factionCB"..i])
+					end
+				else
+					CustomGroup:AddChild(cbs["factionCB"..i])
 				end
 			else
-]]				ReputationGroup:AddChild(cbs["factionCB"..i])
---			end
+				ReputationGroup:AddChild(cbs["factionCB"..i])
+			end
 		end
 	end
 	
@@ -474,10 +480,10 @@ local function SelectGroup(container,event,group)
 end
 
 function DTD:InitUI()	
+	collectgarbage()
 	if windowOpen then 
 		DTD.MainWindow:Release()
 		windowOpen = false
-		collectgarbage()
 		return
 	end
 	-- Create a container frame
@@ -502,6 +508,8 @@ function DTD:InitUI()
 	DTD.MainWindow:AddChild(TabGroup)
 	
 	windowOpen = true
+	_G["DTD_Menu"] = DTD.MainWindow
+	table.insert(UISpecialFrames, "DTD_Menu")
 end
 
 --
@@ -548,16 +556,27 @@ function DTD:CreateTrackingFrame()
 	------ TRACK DAILY HEROIC
 	------
     if DTD_Database.profile.dailyheroic then
-    		local DHLbl= DTD.TrackingFrame:CreateFontString("dailyheroic",nil,"GameFontNormal")
-    		if DTD_Database.profile.completedQuests["dh"] ~= nil then
-				color = "|cff00FF00"
-			else
-				color = "|cff00CCCC"
-			end
-    		DHLbl:SetText(color.."Daily Heroic Dungeon|r")
-    		DHLbl:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",0,-ypos)
-    		ypos = ypos+14
-    end
+		local DHLbl= DTD.TrackingFrame:CreateFontString("dailyheroic",nil,"GameFontNormal")
+		if DTD_Database.realm.dailyHeroic[CharacterName] ~= nil then
+			color = "|cff00FF00"
+		else
+			color = "|cffff0000"
+		end
+		DHLbl:SetText(color.."Daily Heroic Dungeon|r")
+		DHLbl:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",0,-ypos)
+		ypos = ypos+14
+	end
+	if DTD_Database.profile.dailymythic then
+		local DHLbl= DTD.TrackingFrame:CreateFontString("dailyheroic",nil,"GameFontNormal")
+		if DTD_Database.realm.dailyMythic[CharacterName] ~= nil then
+			color = "|cff00FF00"
+		else
+			color = "|cffff0000"
+		end
+		DHLbl:SetText(color.."Daily Mythic Dungeon|r")
+		DHLbl:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",0,-ypos)
+		ypos = ypos+14
+	end
     
     ------
 	------ TRACK OTHER DAILIES
@@ -665,8 +684,7 @@ function DTD:CreateTrackingFrame()
 
             		-- TODO filter by character level UnitLevel("player")
     				-- If the quest is the right faction, or neutral and the quest is not one selected to be ignored and is not a holiday quest
-					if quest["s"] == DTD_Database.profile.friendly or quest["s"] == nil then
-					if quest["c"] ~= 1008 and DTD_Database.profile.dontTrack[q] ~= true then
+					if (quest["s"] == DTD_Database.realm.side[CharacterName] or quest["s"] == nil) and quest["c"] ~= 1008 and DTD_Database.profile.dontTrack[q] ~= true then
 						local level = quest["l"]
 						local color = "|cffFFFFFF"
 						
@@ -681,10 +699,9 @@ function DTD:CreateTrackingFrame()
 						lblBtns[i.."-"..n]:SetWidth(12)
 						lblBtns[i.."-"..n]:SetHeight(12)
 						lblBtns[i.."-"..n]:SetAlpha(1)
-						
-						if DTD_Database.profile.completedQuests[q] then
+						if DTD_Database.realm.completedQuests[CharacterName][q] then
 							tx:SetTexture(QUEST_COMPLETE,1)
-						elseif DTD_Database.profile.acceptedQuests[q] then
+						elseif DTD_Database.realm.acceptedQuests[CharacterName][q] then
 							tx:SetTexture(QUEST_ACCEPTED,1)
 						else
 							tx:SetTexture(QUEST_AVAILABLE,1)
@@ -695,7 +712,7 @@ function DTD:CreateTrackingFrame()
 						---- Create the label for the quest
 						----
 						lbls[i.."-"..n] = DTD.TrackingFrame:CreateFontString("quest"..n,nil,"GameFontNormalSmall")
-						if DTD_Database.profile.completedQuests[q] then
+						if DTD_Database.realm.completedQuests[CharacterName][q] then
 							color = "|cff00FF00"
 						end
 						
@@ -731,12 +748,11 @@ function DTD:CreateTrackingFrame()
 																		DTD_Database.profile.dontTrack[q] = true
 																		DTD:ReloadTrackingFrame()
 																	else
-																		if DTD_Database.profile.completedQuests[q] then
-																			DTD_Database.profile.completedQuests[q] = nil
+																		if DTD_Database.realm.completedQuests[CharacterName][q] then
+																			DTD_Database.realm.completedQuests[CharacterName][q] = nil
 																		else
-																			DTD_Database.profile.completedQuests[q] = true
+																			DTD_Database.realm.completedQuests[CharacterName][q] = true
 																		end
-																		DTD_Database.global.completedQuests[CharacterName] = DTD_Database.profile.completedQuests
 																		DTD:ReloadTrackingFrame()
 																	end
 																end) 
@@ -755,7 +771,6 @@ function DTD:CreateTrackingFrame()
 						lblBtns[i.."-"..n]:Show()
 						
 						ypos = ypos+12
-					end
 					end
 				end
 			end
@@ -808,12 +823,11 @@ function DTD:QUEST_ACCEPTED(_,id)
 	if isDaily then
 		-- Correct for profession quests
 		if professionQuests[questID] ~= nil then
-			DTD_Database.profile.acceptedQuests[professionQuests[questID]] = true
+			DTD_Database.realm.acceptedQuests[CharacterName][professionQuests[questID]] = true
 		-- Set the quest to accepted
 		else
-			DTD_Database.profile.acceptedQuests[questID] = true
+			DTD_Database.realm.acceptedQuests[CharacterName][questID] = true
 		end
-		DTD_Database.global.acceptedQuests[CharacterName] = DTD_Database.profile.acceptedQuests
 	end
 	DTD:ReloadTrackingFrame()
 end
@@ -835,50 +849,83 @@ function DTD:QUEST_COMPLETE()
 	
 	if questID ~= nil then
 		if professionQuests[questID] then
-			DTD_Database.profile.completedQuests[professionQuests[questID]] = true
-            DTD_Database.profile.acceptedQuests[professionQuests[questID]] = nil
+			DTD_Database.realm.completedQuests[CharacterName][professionQuests[questID]] = true
+            DTD_Database.realm.acceptedQuests[CharacterName][professionQuests[questID]] = nil
 		else
-			DTD_Database.profile.completedQuests[questID] = true
-            DTD_Database.profile.acceptedQuests[questID] = nil
+			DTD_Database.realm.completedQuests[CharacterName][questID] = true
+            DTD_Database.realm.acceptedQuests[CharacterName][questID] = nil
 		end
 
 		
 		DTD:ReloadTrackingFrame()
-		
-		-- Sync the global quest tracking
-		DTD_Database.global.acceptedQuests[CharacterName] = DTD_Database.profile.acceptedQuests
-		DTD_Database.global.completedQuests[CharacterName] = DTD_Database.profile.completedQuests
 	end
 end
 
-function DTD:CheckPlayerData()
- 	-- Get Player Faction
- 	if UnitFactionGroup("player") == "Alliance" then
-		DTD_Database.profile.friendly = 1
-		DTD_Database.profile.enemy = 2
-	else
-		DTD_Database.profile.friendly = 2
-		DTD_Database.profile.enemy = 1
-	end
-end
 
 function DTD:ResetData()
 	DTD_Database:ResetDB()
 	collectgarbage()
 	
+	DailyTodos_Updates = DailyTodos_BigUpdate - 5
+
 	DTD.LDBIcon:Show("DTD")
 	DTD:ReloadTrackingFrame()
-	DTD:CheckPlayerData()
 end
+
+--
+-- Reset completed quests for all characters in the realm if Dailies have reset.
+--
+function DTD_ResetExpiredDailies()
+	-- expire any completed dailies that are too IsAddOnLoaded
+	local t = time()
+	if t > DTD_Database.realm.nextReset then
+		DTD_Database.realm.nextReset = t + GetQuestResetTime()
+		for name in pairs(DTD_Database.realm.side) do
+			DTD_Database.realm.completedQuests[name] = {}
+		end
+		DTD_Database.realm.dailyHeroic = {}
+		DTD_Database.realm.dailyMythic = {}
+		DTD:ReloadTrackingFrame()
+	end
+end
+
 
 --
 -- OnUpdate, just for fun
 --
 function DTD_OnUpdate(self, elapsed)
-  DailyTodos_TimeSinceLastUpdate = DailyTodos_TimeSinceLastUpdate + elapsed; 	
+	DailyTodos_TimeSinceLastUpdate = DailyTodos_TimeSinceLastUpdate + elapsed; 	
 
-  if (DailyTodos_TimeSinceLastUpdate > DailyTodos_UpdateInterval) then
-  	DTD.timer:SetText("|cffFFFFFF ("..GetDailyQuestsCompleted().."/"..GetMaxDailyQuests()..") "..SecondsToTime(GetQuestResetTime()).."|r")
-    DailyTodos_TimeSinceLastUpdate = 0;
-  end
+	if (DailyTodos_TimeSinceLastUpdate > DailyTodos_UpdateInterval) then
+		DTD.timer:SetText("|cffFFFFFF ("..GetDailyQuestsCompleted().."/"..GetMaxDailyQuests()..") "..SecondsToTime(GetQuestResetTime()).."|r")
+		DTD_ResetExpiredDailies()
+		DailyTodos_TimeSinceLastUpdate = 0;
+		DailyTodos_Updates = DailyTodos_Updates + 1
+
+		if DailyTodos_Updates > DailyTodos_BigUpdate then
+			-- update this characters accepted daily quests
+			DTD_Database.realm.acceptedQuests[CharacterName] = {}
+			for id=1, 50 do -- GetNumQuestLogEntries returns unreliable results.  this is the maximum amount of header+quests a person can have
+				local _, _, _, _, _, _, _, isDaily, questID = GetQuestLogTitle(id)
+				if isDaily then
+					DTD_Database.realm.acceptedQuests[CharacterName][questID] = true
+				end
+			end
+			-- check if the daily TBC Heroic has been completed
+			local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(418)
+			if doneToday then
+				DTD_Database.realm.dailyHeroic[CharacterName] = true
+			else
+				DTD_Database.realm.dailyHeroic[CharacterName] = nil
+			end
+			-- check if the daily TBC Mythic has been completed
+			local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(419)
+			if doneToday then
+				DTD_Database.realm.dailyMythic[CharacterName] = true
+			else
+				DTD_Database.realm.dailyMythic[CharacterName] = nil
+			end
+			DailyTodos_Updates = 0
+		end
+	end
 end
