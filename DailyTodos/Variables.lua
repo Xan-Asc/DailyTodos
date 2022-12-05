@@ -5,7 +5,7 @@ defaults = {
     	acceptedQuests = {},
 	},
 	profile = {
-  		showMinimapIcon = true,
+  		showMinimapIcon = false,
   		-- Tracking window prefs --
   		showTrackingFrame = true,
   		lockTrackingFrame = false,
@@ -30,7 +30,7 @@ defaults = {
     	acceptedQuests = {},
     	lastOpenDate = nil,
     	minimapIcon = { -- minimap icon position and visibility
-			hide = false,
+			hide = true,
 			minimapPos = 220,
 			radius = 80,
 		},

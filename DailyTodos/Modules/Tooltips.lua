@@ -10,7 +10,7 @@ local QUEST_COMPLETE = "Interface\\RAIDFRAME\\ReadyCheck-Ready.blp"
 local QUEST_NOT_COMPLETE = "Interface\\RAIDFRAME\\ReadyCheck-NotReady.blp"
 local QUEST_ACCEPTED = "Interface\\GossipFrame\\DailyActiveQuestIcon.blp"
 local QUEST_AVAILABLE = "Interface\\GossipFrame\\DailyQuestIcon.blp"
-local WOWHEAD_ICON = "Interface\\Addons\\DailyTodos\\Textures\\wowhead.tga"
+local CLASSLESS_ICON = "Interface\\Icons\\Mail_GMIcon"
 
 local function RGBToHex(r, g, b)
 	r = r <= 255 and r >= 0 and r or 0
@@ -28,7 +28,7 @@ end
 
 -- backported API call
 function bp_GetCurrencyInfo(idx) -- name, texture
-    t = {
+    local t = {
 			{42, "Badge of Justice", "Spell_Holy_ChampionsBond"},
 			{61, "Dalaran Jewelcrafter's Token", "INV_Misc_Gem_Variety_01"},
 			{81, "Epicurean's Award", "INV_Misc_Ribbon_01"},
@@ -48,24 +48,25 @@ function bp_GetCurrencyInfo(idx) -- name, texture
 			{51, "Mystic Rune", "inv_custom_ReforgeToken"},
 			{364, "Mark of Ascension", "Mail_GMIcon"}
 		}
-    for k, v in pairs(t) do
+    for _, v in pairs(t) do
         if idx == v[1] then
             return v[2], v[3]
         end
     end
 end
 
-function DTD_Tooltips:CreateQuestTooltip(parent,quest)
+function DTD_Tooltips:CreateQuestTooltip(parent,id)
+	quest = dailyQuests[id]
 	local tooltip = QTip:Acquire("DTDTooltip",2,"LEFT","LEFT")
 	DTD.tooltip = tooltip
 	
 	-- Title the tooltip with the quest name
-	tooltip:AddHeader(quest["name"])
+	tooltip:AddHeader(quest["n"])
 	tooltip:AddSeparator()
 	
-	-- WowHead ID
-	if quest["id"] > 20 then
-		tooltip:AddLine(format(TEXTURE_LINK_FORMAT, WOWHEAD_ICON, 16, 16, -2)..quest["id"])
+	-- ClasslessDB ID
+	if id > 20 then
+		tooltip:AddLine(format(TEXTURE_LINK_FORMAT, CLASSLESS_ICON, 16, 16, -2)..id)
 	end
 	
 	tooltip:AddLine()
@@ -74,46 +75,39 @@ function DTD_Tooltips:CreateQuestTooltip(parent,quest)
 	tooltip:AddSeparator()
 	
 		-- Show the monetary award
-		if quest["money"] ~= nil then
-				tooltip:AddLine(format(TEXTURE_LINK_FORMAT,"Interface\\ICONS\\INV_Misc_Coin_17.blp",16,16,-2).."|cffFFFFFF"..GetCoinTextureString(quest["money"]).."|r")
+		if quest["m"] ~= nil then
+				tooltip:AddLine(format(TEXTURE_LINK_FORMAT,"Interface\\ICONS\\INV_Misc_Coin_17.blp",16,16,-2).."|cffFFFFFF"..GetCoinTextureString(quest["m"]).."|r")
 		end
 		
 		-- Show the currency reward
-		if quest["currencyrewards"] ~= nil then
-			local index,value = 0
-			
-			for index,reward in ipairs(quest["currencyrewards"]) do
+		if quest["cr"] ~= nil then
+			for _,reward in ipairs(quest["cr"]) do
 				local name, texture = bp_GetCurrencyInfo(reward[1])
 				tooltip:AddLine(format(TEXTURE_LINK_FORMAT,"Interface\\Icons\\"..texture,16,16,-2)..reward[2].." "..name)
 			end	
 		end
 		
 		-- Shows the item reward if no choices
-		if quest["itemrewards"] ~= nil then
-			local index,value = 0
-			
-			for index,reward in ipairs(quest["itemrewards"]) do
-				local name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(reward[1])
-				if texture ~= nil and name ~= nil then
-					local r,g,b,_ = GetItemQualityColor(quality)
-					local line,_ = tooltip:AddLine(format(TEXTURE_LINK_FORMAT,texture,16,16,-2)..name)
-				else
-					tooltip:AddLine("Could not find item reward in cache")
-				end
+--		if quest["itemrewards"] ~= nil then
+--			for _,reward in ipairs(quest["itemrewards"]) do
+--				local name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(reward[1])
+--				if texture ~= nil and name ~= nil then
+--					local r,g,b,_ = GetItemQualityColor(quality)
+--					local line,_ = tooltip:AddLine(format(TEXTURE_LINK_FORMAT,texture,16,16,-2)..name)
+--				else
+--					tooltip:AddLine("Could not find item reward in cache")
+--				end
 				--print (quest["currencyrewards"][1])
-			end	
-		end
+--			end
+--		end
 		
 		-- Shows the item reward if there is a choice
-		if quest["itemchoices"] ~= nil then
+		if quest["ic"] ~= nil then
 			tooltip:AddLine(Crayon:Gold("Pick one:"))
-			
-			local index,value = 0
-			
-			for index,reward in ipairs(quest["itemchoices"]) do
-				local name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(reward[1])
+			for _,reward in ipairs(quest["ic"]) do
+				local name, _, quality, _, _, _, _, _, _, texture, vendorPrice = GetItemInfo(reward[1])
 				if texture ~= nil and name ~= nil then
-					local r,g,b,_ = GetItemQualityColor(quality)
+--					local r,g,b,_ = GetItemQualityColor(quality)
 					if vendorPrice > 0 then
 						tooltip:AddLine(format(TEXTURE_LINK_FORMAT,GetItemIcon(reward[1]),16,16,-2)..name,"("..GetCoinTextureString(vendorPrice)..")")
 					else
@@ -123,15 +117,16 @@ function DTD_Tooltips:CreateQuestTooltip(parent,quest)
 				else
 					GameTooltip:AddLine("Could not find item reward in cache")
 				end
-				--print (quest["currencyrewards"][1])
 			end
 		end
 		
 		-- Add the amount of reputation gained, but only if there is reputation rewarded
-		if quest["reprewards"] ~= nil then
-			local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfoByID(quest["reprewards"][1][1])
-			if quest["reprewards"][1][2] > 10 then
-				tooltip:AddLine(quest["reprewards"][1][2]..Crayon:Blue(" reputation with ")..Crayon:Colorize(RGBPercToHex(FACTION_BAR_COLORS[standingID].r,FACTION_BAR_COLORS[standingID].g,FACTION_BAR_COLORS[standingID].b),name))
+		if quest["rr"] ~= nil then
+			for i=1,#quest["rr"] do
+				local name, _, standingID, _, _, _, _, _, _, _, _, _, _ = GetFactionInfoByID(quest["rr"][i][1])
+				if quest["rr"][i][2] > 10 then
+					tooltip:AddLine(quest["rr"][i][2]..Crayon:Blue(" reputation with ")..Crayon:Colorize(RGBPercToHex(FACTION_BAR_COLORS[standingID].r,FACTION_BAR_COLORS[standingID].g,FACTION_BAR_COLORS[standingID].b),name))
+				end
 			end
 		end
 		
@@ -145,21 +140,19 @@ function DTD_Tooltips:CreateQuestTooltip(parent,quest)
 		--
 		-- Tracking
 		--
-		local npc = npcInfo[questNpcs[quest["id"]]]
+		local npc = npcInfo[questNpcs[id]]
 		if npc ~= nil then
-			
 			tooltip:AddLine()
 			tooltip:AddHeader("Quest Giver:")
 			tooltip:AddSeparator()
 			tooltip:AddLine(format(TEXTURE_LINK_FORMAT,QUEST_AVAILABLE,16,16,-2)..npc["name"])
-		
 		end
 	
 	-- Show other characters
 	tooltip:AddHeader("Other Characters:")
 	tooltip:AddSeparator()
 	for name, info in pairs(DTD_Database.global.character) do
-		local charClass, charServer, charFaction = ("|"):split(info)
+		local charServer, charFaction = ("|"):split(info)
 		local serverText = ""
 		local tex = QUEST_NOT_COMPLETE
 		if charFaction == "HORDE" then
@@ -167,13 +160,12 @@ function DTD_Tooltips:CreateQuestTooltip(parent,quest)
 		else
 			serverText = Crayon:Blue(charServer)
 		end
-		if DTD_Database.global.completedQuests[name][quest["id"]] == true then
+		if DTD_Database.global.completedQuests[name][id] == true then
 			tex = QUEST_COMPLETE
-		elseif DTD_Database.global.acceptedQuests[name][quest["id"]] == true then
+		elseif DTD_Database.global.acceptedQuests[name][id] == true then
 			tex = QUEST_ACCEPTED
 		end
-		
-		if charClass == "DEATH KNIGHT" then charClass = "DEATHKNIGHT" end
+
 		tooltip:AddLine(format(TEXTURE_LINK_FORMAT,tex,12,12,-2)..name.." - "..serverText)
 		
 	end

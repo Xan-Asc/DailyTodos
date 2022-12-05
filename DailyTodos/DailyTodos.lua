@@ -130,7 +130,7 @@ local professionQuests = {
 local windowOpen = false
 local tab = 1
 
-local CharacterName, CharacterRealm, CharacterFaction, CharacterClass = UnitName("player"), GetRealmName(), string.upper(UnitFactionGroup("player")), string.upper(UnitClass("player"))
+local CharacterName, CharacterRealm, CharacterFaction = UnitName("player"), GetRealmName(), string.upper(UnitFactionGroup("player"))
 
 local QUEST_COMPLETE = "Interface\\RAIDFRAME\\ReadyCheck-Ready.blp"
 local QUEST_ACCEPTED = "Interface\\GossipFrame\\DailyActiveQuestIcon.blp"
@@ -198,7 +198,7 @@ function DTD:OnEnable()
     
     -- Check to see if there is a quest completion profile for this character yet
     if not DTD_Database.global.character[CharacterName] then
-    	DTD_Database.global.character[CharacterName] = (CharacterClass.."|"..CharacterRealm.."|"..CharacterFaction)
+    	DTD_Database.global.character[CharacterName] = (CharacterRealm.."|"..CharacterFaction)
     	DTD_Database.global.completedQuests[CharacterName] = DTD_Database.profile.completedQuests
     	DTD_Database.global.acceptedQuests[CharacterName] = DTD_Database.profile.acceptedQuests
     end
@@ -212,79 +212,88 @@ end
 
 -- Objective selection tab
 function DTD:DrawGroup1(container)
-	-- Draw the settings
-	-- 
-	-- PROFESSION QUESTS
-	--
-	container:SetLayout("Fill")
-	
-	local ScrollFrame = AceGUI:Create("ScrollFrame")
-	ScrollFrame:SetLayout("Flow")
-	ScrollFrame:SetWidth(250)
-	container:AddChild(ScrollFrame)
-	
-	ScrollFrame:PauseLayout()
-	
-	local DailyHeroicCheckBox = AceGUI:Create("CheckBox")
-	DailyHeroicCheckBox:SetLabel("Daily Heroic Dungeon")
-	if DTD_Database.profile.dailyheroic then
-		DailyHeroicCheckBox:SetValue(DTD_Database.profile.dailyheroic)
-	end
-	DailyHeroicCheckBox:SetCallback("OnValueChanged", function() 
-															DTD_Database.profile.dailyheroic = DailyHeroicCheckBox:GetValue()
-															DTD:ReloadTrackingFrame()
-														end)
-	ScrollFrame:AddChild(DailyHeroicCheckBox)
-	
-	local ProfessionsGroup = AceGUI:Create("InlineGroup")
-	ProfessionsGroup:SetTitle("Profession Dailies")
-	ProfessionsGroup:SetLayout("Flow")
-	ScrollFrame:AddChild(ProfessionsGroup)
-	
-	--
-	-- DAILIES
-	--
-	
-	local ReputationGroup = AceGUI:Create("InlineGroup")
-	ReputationGroup:SetTitle("Reputation")
-	ReputationGroup:SetLayout("Flow")
-	ScrollFrame:AddChild(ReputationGroup)
-	
-	local DescText = AceGUI:Create("Label")
-	DescText:SetText("Check off each faction who's reputation daily quests you would like to be reminded to complete.")
-	DescText:SetColor(0,1,0)
-	ReputationGroup:AddChild(DescText)
-	
-	-- Loop through the factions and create a checkbox for each
-	local cbs = {}
-	for i = 1, #(factions) do
-		if factions[i]["side"] ~= DTD_Database.profile.enemy then
-			--self:Print(factions[i]["name"])
-			--self:Print("Id: "..factions[i]["id"])
+    -- Draw the settings
+    --
+    -- PROFESSION QUESTS
+    --
+    container:SetLayout("Fill")
+
+    local ScrollFrame = AceGUI:Create("ScrollFrame")
+    ScrollFrame:SetLayout("Flow")
+    ScrollFrame:SetWidth(250)
+    container:AddChild(ScrollFrame)
+
+    ScrollFrame:PauseLayout()
+
+    local DailyHeroicCheckBox = AceGUI:Create("CheckBox")
+    DailyHeroicCheckBox:SetLabel("Daily Heroic Dungeon")
+    if DTD_Database.profile.dailyheroic then
+        DailyHeroicCheckBox:SetValue(DTD_Database.profile.dailyheroic)
+    end
+    DailyHeroicCheckBox:SetCallback("OnValueChanged", function()
+        DTD_Database.profile.dailyheroic = DailyHeroicCheckBox:GetValue()
+        DTD:ReloadTrackingFrame()
+    end)
+    ScrollFrame:AddChild(DailyHeroicCheckBox)
+
+    local ProfessionsGroup = AceGUI:Create("InlineGroup")
+    ProfessionsGroup:SetTitle("Profession Dailies")
+    ProfessionsGroup:SetLayout("Flow")
+    ScrollFrame:AddChild(ProfessionsGroup)
+
+    --
+    -- DAILIES
+    --
+
+    local ReputationGroup = AceGUI:Create("InlineGroup")
+    ReputationGroup:SetTitle("Reputation")
+    ReputationGroup:SetLayout("Flow")
+    ScrollFrame:AddChild(ReputationGroup)
+
+    local DescText = AceGUI:Create("Label")
+    DescText:SetText("Check off each faction who's reputation daily quests you would like to be reminded to complete.")
+    DescText:SetColor(0,1,0)
+    ReputationGroup:AddChild(DescText)
+
+    -- Loop through the factions and create a checkbox for each
+    local cbs = {}
+    local j = 0
+    local sorted_factions = {}
+    for k in pairs(factions) do
+        table.insert(sorted_factions, k)
+    end
+    table.sort(sorted_factions)
+	for _, id in ipairs(sorted_factions) do
+        local v = factions[id]
+		if v["s"] ~= DTD_Database.profile.enemy then
+            j = j + 1
+			local i = j
 			cbs["factionCB"..i] = AceGUI:Create("CheckBox")
-			cbs["factionCB"..i]:SetLabel(factions[i]["name"])
+			cbs["factionCB"..i]:SetLabel(v["n"])
 			cbs["factionCB"..i]:SetFullWidth(true)
 			-- load the previous checkbox state
-			if DTD_Database.profile.factionsTracking[factions[i]["id"]] then
-				cbs["factionCB"..i]:SetValue(DTD_Database.profile.factionsTracking[factions[i]["id"]])
+			if DTD_Database.profile.factionsTracking[id] then
+				cbs["factionCB"..i]:SetValue(DTD_Database.profile.factionsTracking[id])
 			end
 			
 			-- Register toggle checkback
 			cbs["factionCB"..i]:SetCallback("OnValueChanged",function () 
 				--DTD_Database.profile.factionsTracking[i] = cbs["factionCB"..i]:GetValue()
-				DTD_Database.profile.factionsTracking[factions[i]["id"]] = cbs["factionCB"..i]:GetValue()
+				print(id, i, cbs["factionCB"..i]:GetValue())
+				if cbs["factionCB"..i]:GetValue() then
+					DTD_Database.profile.factionsTracking[id] = true
+				else
+					DTD_Database.profile.factionsTracking[id] = nil
+				end
 				DTD:ReloadTrackingFrame()
 			end)
 			cbs["factionCB"..i]:SetCallback("OnEnter",function ()
 				GameTooltip:SetOwner(cbs["factionCB"..i].frame, "ANCHOR_CURSOR", 0, 0)
-				if factions[i]["side"] == DTD_Database.profile.friendly then
-					GameTooltip:AddLine(factions[i]["name"],0,1,0)
+				if v["s"] == DTD_Database.profile.friendly then
+					GameTooltip:AddLine(v["n"],0,1,0)
 					GameTooltip:AddLine(UnitFactionGroup("player"),1,1,1)
-				--elseif factions[i]["side"] == DTD_Database.profile.enemy then
-				--	GameTooltip:AddLine(factions[i]["name"],1,0,0)
-				--	GameTooltip:AddLine("Hostile",1,1,1)
 				else
-					GameTooltip:AddLine(factions[i]["name"])
+					GameTooltip:AddLine(v["n"])
 					GameTooltip:AddLine("Neutral",1,1,1)
 				end
 				GameTooltip:Show()
@@ -292,14 +301,10 @@ function DTD:DrawGroup1(container)
 			
 			cbs["factionCB"..i]:SetCallback("OnLeave",function () GameTooltip:Hide() end)
 			
-			--if factions[i]["side"] then self:Print(factions[i]["name"].." is faction "..factions[i]["side"])
-			--else self:Print(factions[i]["name"].." is neutral")
-			--end			
-			
-			if factions[i]["category"] == 2 then						-- Veto if they do not have the appropriate profession
+--[[			if factions[i]["category"] == 2 and factions[i]["category2"] ~= nil then						-- Veto if they do not have the appropriate profession
 				if factions[i]["category2"] == 2 then 		-- It's a cooking quest
 					ProfessionsGroup:AddChild(cbs["factionCB"..i])
-				end	
+				end
 				if factions[i]["category2"] == 1 then		-- It's a fishing quest
 					ProfessionsGroup:AddChild(cbs["factionCB"..i])
 				end
@@ -307,8 +312,8 @@ function DTD:DrawGroup1(container)
 					ProfessionsGroup:AddChild(cbs["factionCB"..i])
 				end
 			else
-				ReputationGroup:AddChild(cbs["factionCB"..i])
-			end
+]]				ReputationGroup:AddChild(cbs["factionCB"..i])
+--			end
 		end
 	end
 	
@@ -551,21 +556,20 @@ function DTD:CreateTrackingFrame()
     ------
 	------ TRACK OTHER DAILIES
 	------
-    for i = 1, #(factions) do    	
-		if DTD_Database.profile.factionsTracking[factions[i]["id"]] then
+    for id, v in pairs(factions) do    
+		if DTD_Database.profile.factionsTracking[id] then
 			
 			local isFaction = false
 			
 			-- Get the faction info
-			local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfoByID(factions[i]["id"])
-			if name == factions[i]["name"] then
+			local name, _, standingID, barMin, barMax, barValue, _, _, _, _, _, _, _ = GetFactionInfoByID(id)
+			if name == v["n"] then
 				isFaction = true
-				--print(factions[i]["name"].." = "..name)
 			end
 			
 			-- Create the Faction header and the expand/contract button
 			btns[i] = CreateFrame("Button",nil,DTD.TrackingFrame,"OptionsButtonTemplate")
-			if DTD_Database.profile.trackFactionsExpanded[factions[i]["id"]] then
+			if DTD_Database.profile.trackFactionsExpanded[id] then
 				btns[i]:SetText("-")
 			else
 				btns[i]:SetText("+")
@@ -575,18 +579,18 @@ function DTD:CreateTrackingFrame()
 			btns[i]:SetAlpha(1)
 			btns[i]:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",2,-ypos-2)
 			btns[i]:SetScript("OnClick",function ()
-											if DTD_Database.profile.trackFactionsExpanded[factions[i]["id"]] then
-												DTD_Database.profile.trackFactionsExpanded[factions[i]["id"]] = false
+											if DTD_Database.profile.trackFactionsExpanded[id] then
+												DTD_Database.profile.trackFactionsExpanded[id] = nil
 												DTD:ReloadTrackingFrame()
 											else
-												DTD_Database.profile.trackFactionsExpanded[factions[i]["id"]] = true
+												DTD_Database.profile.trackFactionsExpanded[id] = true
 												DTD:ReloadTrackingFrame()
 											end
 										end)
 			btns[i]:Show()
 			
 			headers[i] = DTD.TrackingFrame:CreateFontString("header"..i,nil,"GameFontNormal")
-			headers[i]:SetText(factions[i]["name"])
+			headers[i]:SetText(v["n"])
 			headers[i]:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",16,-ypos)
 			headers[i]:Show()
 			
@@ -613,38 +617,39 @@ function DTD:CreateTrackingFrame()
 				repbar.value:SetJustifyH("CENTER")
 				repbar.value:SetShadowOffset(1, -1)
 				repbar.value:SetTextColor(1, 1, 1)
-				repbar.value:SetText(factions[i]["name"])
+				repbar.value:SetText(v["n"])
 				
 				repbar:SetScript("OnEnter",function ()
 												repbar.value:SetText((barValue-barMin).." / "..(barMax-barMin))
 											end)
-				repbar:SetScript("OnLeave",function () repbar.value:SetText(factions[i]["name"]) end)
+				repbar:SetScript("OnLeave",function () repbar.value:SetText(v["n"]) end)
 			end
 			
 			ypos = ypos+16
 			--	make sure the header is expanded
-			if DTD_Database.profile.trackFactionsExpanded[factions[i]["id"]] then
+			if DTD_Database.profile.trackFactionsExpanded[id] then
 				-- Detect a prof quest
-				if factions[i]["id"] < 10 then
+--[[				if id < 10 then
 					local qCat = 0
-					if factions[i]["id"] < 4 then
+					if id < 4 then
 						qCat = 1
-					elseif factions[i]["id"] < 7 then
+					elseif id < 7 then
 						qCat = 3
-					elseif factions[i]["id"] == 7 then
+					elseif id == 7 then
 						qCat = 5
 					end
 					qCat = qCat + (DTD_Database.profile.friendly-1)
 					cat = factions[qCat]["id"]
 					--print(factions[qCat]["name"])
 				end
-				local cat = dailyQuests[factions[i]["id"]]
-    			for n = 1, #(cat) do
-    				local quest = dailyQuests[factions[i]["id"]][n]
+				local cat = dailyQuests[id] -- TODO
+]]    			for n, q in pairs(v['q']) do
+    				local quest = dailyQuests[q]
+					-- TODO filter by character level UnitLevel("player")
     				-- If the quest is the right faction, or neutral and the quest is not one selected to be ignored and is not a holiday quest
-					if quest["side"] == DTD_Database.profile.friendly or quest["side"] == 3 then
-					if math.abs(quest["category"]) ~= 1008 and DTD_Database.profile.dontTrack[quest["id"]] ~= true then
-						local level = quest["level"]
+					if quest["s"] == DTD_Database.profile.friendly or quest["s"] == nil then
+					if quest["c"] ~= 1008 and DTD_Database.profile.dontTrack[q] ~= true then
+						local level = quest["l"]
 						local color = "|cffFFFFFF"
 						
 						----
@@ -659,9 +664,9 @@ function DTD:CreateTrackingFrame()
 						lblBtns[i.."-"..n]:SetHeight(12)
 						lblBtns[i.."-"..n]:SetAlpha(1)
 						
-						if DTD_Database.profile.completedQuests[quest["id"]] then
+						if DTD_Database.profile.completedQuests[q] then
 							tx:SetTexture(QUEST_COMPLETE,1)
-						elseif DTD_Database.profile.acceptedQuests[quest["id"]] then
+						elseif DTD_Database.profile.acceptedQuests[q] then
 							tx:SetTexture(QUEST_ACCEPTED,1)
 						else
 							tx:SetTexture(QUEST_AVAILABLE,1)
@@ -672,19 +677,19 @@ function DTD:CreateTrackingFrame()
 						---- Create the label for the quest
 						----
 						lbls[i.."-"..n] = DTD.TrackingFrame:CreateFontString("quest"..n,nil,"GameFontNormalSmall")
-						if DTD_Database.profile.completedQuests[quest["id"]] then
+						if DTD_Database.profile.completedQuests[q] then
 							color = "|cff00FF00"
 						end
 						
 						-- Not a profession quest, so localize the name automatically
-						if quest["id"] > 10 then
-							quest["name"] = quest_names[quest["id"]] -- fix for Torhal's localization code. reload the data so it doesn't say "unknown"
-							quest["name"] = quest_names[quest["id"]]
+						if q > 10 then
+							quest["n"] = quest_names[q] -- fix for Torhal's localization code. reload the data so it doesn't say "unknown"
+							quest["n"] = quest_names[q]
 						end
-						if level == nil then
-							lbls[i.."-"..n]:SetText(color..quest["name"].."|r")
+						if level == nil or level < 1 then
+							lbls[i.."-"..n]:SetText(color..quest["n"].."|r")
 						else
-							lbls[i.."-"..n]:SetText("|cff74BBFB["..quest["level"].."]|r "..color..quest["name"].."|r")
+							lbls[i.."-"..n]:SetText("|cff74BBFB["..quest["l"].."]|r "..color..quest["n"].."|r")
 						end
 						lbls[i.."-"..n]:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",27,-ypos)
 						lbls[i.."-"..n]:Show()
@@ -705,13 +710,13 @@ function DTD:CreateTrackingFrame()
 						lblBtns[i.."-"..n]:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",27,-ypos)
 						lblBtns[i.."-"..n]:SetScript("OnClick", function (_, button)
 																	if button == "RightButton" then
-																		DTD_Database.profile.dontTrack[dailyQuests[factions[i]["id"]][n]["id"]] = true
+																		DTD_Database.profile.dontTrack[q] = true
 																		DTD:ReloadTrackingFrame()
 																	else
-																		if DTD_Database.profile.completedQuests[dailyQuests[factions[i]["id"]][n]["id"]] then
-																			DTD_Database.profile.completedQuests[dailyQuests[factions[i]["id"]][n]["id"]] = false
+																		if DTD_Database.profile.completedQuests[q] then
+																			DTD_Database.profile.completedQuests[q] = nil
 																		else
-																			DTD_Database.profile.completedQuests[dailyQuests[factions[i]["id"]][n]["id"]] = true
+																			DTD_Database.profile.completedQuests[q] = true
 																		end
 																		DTD_Database.global.completedQuests[CharacterName] = DTD_Database.profile.completedQuests
 																		DTD:ReloadTrackingFrame()
@@ -719,7 +724,7 @@ function DTD:CreateTrackingFrame()
 																end) 
 						lblBtns[i.."-"..n]:SetScript("OnEnter", function ()
 																	if DTD_Tooltips then
-																		DTD_Tooltips:CreateQuestTooltip(lblBtns[i.."-"..n],dailyQuests[factions[i]["id"]][n])
+																		DTD_Tooltips:CreateQuestTooltip(lblBtns[i.."-"..n],q)
 																	end
 																end)
 						lblBtns[i.."-"..n]:SetScript("OnLeave", function ()
@@ -813,13 +818,17 @@ function DTD:QUEST_COMPLETE()
 	if questID ~= nil then
 		if professionQuests[questID] then
 			DTD_Database.profile.completedQuests[professionQuests[questID]] = true
+            DTD_Database.profile.acceptedQuests[professionQuests[questID]] = nil
 		else
 			DTD_Database.profile.completedQuests[questID] = true
+            DTD_Database.profile.acceptedQuests[questID] = nil
 		end
+
 		
 		DTD:ReloadTrackingFrame()
 		
 		-- Sync the global quest tracking
+		DTD_Database.global.acceptedQuests[CharacterName] = DTD_Database.profile.acceptedQuests
 		DTD_Database.global.completedQuests[CharacterName] = DTD_Database.profile.completedQuests
 	end
 end
@@ -836,7 +845,6 @@ function DTD:CheckPlayerData()
 end
 
 function DTD:ResetData()
-	
 	DTD_Database:ResetDB()
 	collectgarbage()
 	
