@@ -1,0 +1,199 @@
+------------------------------------------------------------------------
+r10 | rippled | 2011-05-08 18:19:24 +0000 (Sun, 08 May 2011) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/DailyTodos.lua
+   M /trunk/DailyTodos.toc
+
+Fixing issues with inclusions (hopefully)
+------------------------------------------------------------------------
+r9 | rippled | 2011-05-05 22:57:44 +0000 (Thu, 05 May 2011) | 1 line
+Changed paths:
+   M /trunk/DailyTodos.toc
+
+Fixed inclusion of LibDBIcon
+------------------------------------------------------------------------
+r8 | rippled | 2011-05-04 21:34:10 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   M /trunk/DailyTodos.lua
+
+Localizations for quest names
+------------------------------------------------------------------------
+r7 | rippled | 2011-05-04 21:18:52 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   M /trunk/DailyTodos.lua
+
+Localizations for quest names
+------------------------------------------------------------------------
+r6 | rippled | 2011-05-04 14:30:39 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   A /trunk/Categories.lua
+   A /trunk/DailyTodos.lua
+   A /trunk/DailyTodos.toc
+   A /trunk/Modules
+   A /trunk/Modules/Announcements.lua
+   A /trunk/Modules/Tooltips.lua
+   A /trunk/NPCs.lua
+   A /trunk/Quests.lua
+   A /trunk/Textures
+   A /trunk/Textures/Bar.tga
+   A /trunk/Textures/BarGlow.tga
+   A /trunk/Textures/wowhead.tga
+   A /trunk/Variables.lua
+
+Uploading first revision
+------------------------------------------------------------------------
+r5 | rippled | 2011-05-04 14:22:54 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   D /trunk/DailyTodos
+
+File structure is wrong
+------------------------------------------------------------------------
+r4 | rippled | 2011-05-04 14:20:23 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   A /trunk/.pkgmeta
+
+Not needed. Will be automatically generated
+------------------------------------------------------------------------
+r3 | rippled | 2011-05-04 14:19:38 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   D /trunk/DailyTodos/Libs
+
+Not needed. Will be automatically generated
+------------------------------------------------------------------------
+r2 | rippled | 2011-05-04 13:54:40 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   A /trunk/DailyTodos
+   A /trunk/DailyTodos/Categories.lua
+   A /trunk/DailyTodos/DailyTodos.lua
+   A /trunk/DailyTodos/DailyTodos.toc
+   A /trunk/DailyTodos/Libs
+   A /trunk/DailyTodos/Libs/Ace3.lua
+   A /trunk/DailyTodos/Libs/Ace3.toc
+   A /trunk/DailyTodos/Libs/AceAddon-3.0
+   A /trunk/DailyTodos/Libs/AceAddon-3.0/AceAddon-3.0.lua
+   A /trunk/DailyTodos/Libs/AceAddon-3.0/AceAddon-3.0.xml
+   A /trunk/DailyTodos/Libs/AceBucket-3.0
+   A /trunk/DailyTodos/Libs/AceBucket-3.0/AceBucket-3.0.lua
+   A /trunk/DailyTodos/Libs/AceBucket-3.0/AceBucket-3.0.xml
+   A /trunk/DailyTodos/Libs/AceComm-3.0
+   A /trunk/DailyTodos/Libs/AceComm-3.0/AceComm-3.0.lua
+   A /trunk/DailyTodos/Libs/AceComm-3.0/AceComm-3.0.xml
+   A /trunk/DailyTodos/Libs/AceComm-3.0/ChatThrottleLib.lua
+   A /trunk/DailyTodos/Libs/AceConfig-3.0
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfig-3.0.lua
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfig-3.0.xml
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigCmd-3.0
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigCmd-3.0/AceConfigCmd-3.0.lua
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigCmd-3.0/AceConfigCmd-3.0.xml
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigDialog-3.0
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigDialog-3.0/AceConfigDialog-3.0.lua
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigDialog-3.0/AceConfigDialog-3.0.xml
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigRegistry-3.0
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigRegistry-3.0/AceConfigRegistry-3.0.lua
+   A /trunk/DailyTodos/Libs/AceConfig-3.0/AceConfigRegistry-3.0/AceConfigRegistry-3.0.xml
+   A /trunk/DailyTodos/Libs/AceConsole-3.0
+   A /trunk/DailyTodos/Libs/AceConsole-3.0/AceConsole-3.0.lua
+   A /trunk/DailyTodos/Libs/AceConsole-3.0/AceConsole-3.0.xml
+   A /trunk/DailyTodos/Libs/AceDB-3.0
+   A /trunk/DailyTodos/Libs/AceDB-3.0/AceDB-3.0.lua
+   A /trunk/DailyTodos/Libs/AceDB-3.0/AceDB-3.0.xml
+   A /trunk/DailyTodos/Libs/AceDBOptions-3.0
+   A /trunk/DailyTodos/Libs/AceDBOptions-3.0/AceDBOptions-3.0.lua
+   A /trunk/DailyTodos/Libs/AceDBOptions-3.0/AceDBOptions-3.0.xml
+   A /trunk/DailyTodos/Libs/AceEvent-3.0
+   A /trunk/DailyTodos/Libs/AceEvent-3.0/AceEvent-3.0.lua
+   A /trunk/DailyTodos/Libs/AceEvent-3.0/AceEvent-3.0.xml
+   A /trunk/DailyTodos/Libs/AceGUI-3.0
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/AceGUI-3.0.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/AceGUI-3.0.xml
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-BlizOptionsGroup.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-DropDownGroup.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-Frame.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-InlineGroup.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-ScrollFrame.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-SimpleGroup.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-TabGroup.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-TreeGroup.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIContainer-Window.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-Button.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-CheckBox.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-ColorPicker.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-DropDown-Items.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-DropDown.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-EditBox.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-Heading.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-Icon.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-InteractiveLabel.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-Keybinding.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-Label.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-MultiLineEditBox.lua
+   A /trunk/DailyTodos/Libs/AceGUI-3.0/widgets/AceGUIWidget-Slider.lua
+   A /trunk/DailyTodos/Libs/AceHook-3.0
+   A /trunk/DailyTodos/Libs/AceHook-3.0/AceHook-3.0.lua
+   A /trunk/DailyTodos/Libs/AceHook-3.0/AceHook-3.0.xml
+   A /trunk/DailyTodos/Libs/AceLocale-3.0
+   A /trunk/DailyTodos/Libs/AceLocale-3.0/AceLocale-3.0.lua
+   A /trunk/DailyTodos/Libs/AceLocale-3.0/AceLocale-3.0.xml
+   A /trunk/DailyTodos/Libs/AceSerializer-3.0
+   A /trunk/DailyTodos/Libs/AceSerializer-3.0/AceSerializer-3.0.lua
+   A /trunk/DailyTodos/Libs/AceSerializer-3.0/AceSerializer-3.0.xml
+   A /trunk/DailyTodos/Libs/AceTab-3.0
+   A /trunk/DailyTodos/Libs/AceTab-3.0/AceTab-3.0.lua
+   A /trunk/DailyTodos/Libs/AceTab-3.0/AceTab-3.0.xml
+   A /trunk/DailyTodos/Libs/AceTimer-3.0
+   A /trunk/DailyTodos/Libs/AceTimer-3.0/AceTimer-3.0.lua
+   A /trunk/DailyTodos/Libs/AceTimer-3.0/AceTimer-3.0.xml
+   A /trunk/DailyTodos/Libs/Bindings.xml
+   A /trunk/DailyTodos/Libs/CallbackHandler-1.0
+   A /trunk/DailyTodos/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua
+   A /trunk/DailyTodos/Libs/CallbackHandler-1.0/CallbackHandler-1.0.xml
+   A /trunk/DailyTodos/Libs/Changelog-Ace3-r1007.txt
+   A /trunk/DailyTodos/Libs/LICENSE.txt
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/Changelog-LibCrayon-3.0-WoW-3.0-release.txt
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/LICENSE.txt
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/LibCrayon-3.0.lua
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/LibCrayon-3.0.toc
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/LibStub
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/LibStub/LibStub.lua
+   A /trunk/DailyTodos/Libs/LibCrayon-3.0/lib.xml
+   A /trunk/DailyTodos/Libs/LibDBIcon-1.0
+   A /trunk/DailyTodos/Libs/LibDBIcon-1.0/LibDBIcon-1.0.lua
+   A /trunk/DailyTodos/Libs/LibDataBroker-1.1
+   A /trunk/DailyTodos/Libs/LibDataBroker-1.1/LibDataBroker-1.1.lua
+   A /trunk/DailyTodos/Libs/LibDataBroker-1.1/README.textile
+   A /trunk/DailyTodos/Libs/LibQTip-1.0
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/Changelog-LibQTip-1.0-r150-release.txt
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/LICENSE.txt
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/LibQTip-1.0.lua
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/LibQTip-1.0.toc
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/LibStub
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/LibStub/LibStub.lua
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/LibStub/LibStub.toc
+   A /trunk/DailyTodos/Libs/LibQTip-1.0/lib.xml
+   A /trunk/DailyTodos/Libs/LibStub
+   A /trunk/DailyTodos/Libs/LibStub/LibStub.lua
+   A /trunk/DailyTodos/Libs/changelog.txt
+   A /trunk/DailyTodos/Modules
+   A /trunk/DailyTodos/Modules/Announcements.lua
+   A /trunk/DailyTodos/Modules/Tooltips.lua
+   A /trunk/DailyTodos/NPCs.lua
+   A /trunk/DailyTodos/Quests.lua
+   A /trunk/DailyTodos/Textures
+   A /trunk/DailyTodos/Textures/Bar.tga
+   A /trunk/DailyTodos/Textures/BarGlow.tga
+   A /trunk/DailyTodos/Textures/wowhead.tga
+   A /trunk/DailyTodos/Variables.lua
+
+Testing
+------------------------------------------------------------------------
+r1 | root | 2011-05-04 13:17:27 +0000 (Wed, 04 May 2011) | 1 line
+Changed paths:
+   A /branches
+   A /tags
+   A /trunk
+
+"dailytodos/mainline: Initial Import"
+------------------------------------------------------------------------
