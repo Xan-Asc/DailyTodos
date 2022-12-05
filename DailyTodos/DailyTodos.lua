@@ -182,15 +182,13 @@ function DTD:OnEnable()
     -- Called when the addon is enabled
     self:Print("Daily To-Do's enabled. /dtd to configure.")
 	
-	-- TODO expire completed quests
-
-	-- Check to see if there is a quest completion profile for this character yet
+	if CharacterFaction == 'ALLIANCE' then
+		DTD_Database.realm.side[CharacterName] = 1
+	else
+		DTD_Database.realm.side[CharacterName] = 2
+	end
+-- Check to see if there is a quest completion profile for this character yet
     if not DTD_Database.realm.side[CharacterName] then
-		if CharacterFaction == 'ALLIANCE' then
-	    	DTD_Database.realm.side[CharacterName] = 1
-		else
-			DTD_Database.realm.side[CharacterName] = 2
-		end
 		DTD_Database.realm.completedQuests[CharacterName] = {}
 		DTD_Database.realm.acceptedQuests[CharacterName] = {}
     end
@@ -198,6 +196,7 @@ function DTD:OnEnable()
     -- Register quest complete
     self:RegisterEvent("QUEST_ACCEPTED")
     self:RegisterEvent("QUEST_COMPLETE")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD") -- for daily heroic/mythic dungeon
 end
 
 -- Objective selection tab
@@ -550,7 +549,7 @@ function DTD:CreateTrackingFrame()
 	
 	ypos = ypos + 14
     
-    i = 0
+    local i = 0
     
     ------
 	------ TRACK DAILY HEROIC
@@ -558,9 +557,9 @@ function DTD:CreateTrackingFrame()
     if DTD_Database.profile.dailyheroic then
 		local DHLbl= DTD.TrackingFrame:CreateFontString("dailyheroic",nil,"GameFontNormal")
 		if DTD_Database.realm.dailyHeroic[CharacterName] ~= nil then
-			color = "|cff00FF00"
+			color = "|cFF47FD46"
 		else
-			color = "|cffff0000"
+			color = "|cFFFD4746"
 		end
 		DHLbl:SetText(color.."Daily Heroic Dungeon|r")
 		DHLbl:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",0,-ypos)
@@ -569,9 +568,9 @@ function DTD:CreateTrackingFrame()
 	if DTD_Database.profile.dailymythic then
 		local DHLbl= DTD.TrackingFrame:CreateFontString("dailyheroic",nil,"GameFontNormal")
 		if DTD_Database.realm.dailyMythic[CharacterName] ~= nil then
-			color = "|cff00FF00"
+			color = "|cFF47FD46"
 		else
-			color = "|cffff0000"
+			color = "|cFFFD4746"
 		end
 		DHLbl:SetText(color.."Daily Mythic Dungeon|r")
 		DHLbl:SetPoint("TOPLEFT",DTD.TrackingFrame,"TOPLEFT",0,-ypos)
@@ -861,6 +860,26 @@ function DTD:QUEST_COMPLETE()
 	end
 end
 
+function DTD:PLAYER_ENTERING_WORLD()
+	-- update daily heroic/mythic dungeon status on zone change
+	-- check if the daily TBC Heroic has been completed
+	local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(418)
+	if doneToday then
+		DTD_Database.realm.dailyHeroic[CharacterName] = true
+	else
+		DTD_Database.realm.dailyHeroic[CharacterName] = nil
+	end
+	-- check if the daily TBC Mythic has been completed
+	local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(419)
+	if doneToday then
+		DTD_Database.realm.dailyMythic[CharacterName] = true
+	else
+		DTD_Database.realm.dailyMythic[CharacterName] = nil
+	end
+	if DTD_Database.profile.dailyheroic or DTD_Database.profile.dailymythic then
+		DTD:ReloadTrackingFrame()
+	end
+end
 
 function DTD:ResetData()
 	DTD_Database:ResetDB()
@@ -910,20 +929,6 @@ function DTD_OnUpdate(self, elapsed)
 				if isDaily then
 					DTD_Database.realm.acceptedQuests[CharacterName][questID] = true
 				end
-			end
-			-- check if the daily TBC Heroic has been completed
-			local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(418)
-			if doneToday then
-				DTD_Database.realm.dailyHeroic[CharacterName] = true
-			else
-				DTD_Database.realm.dailyHeroic[CharacterName] = nil
-			end
-			-- check if the daily TBC Mythic has been completed
-			local doneToday, _, _, _, _, _ = GetLFGDungeonRewards(419)
-			if doneToday then
-				DTD_Database.realm.dailyMythic[CharacterName] = true
-			else
-				DTD_Database.realm.dailyMythic[CharacterName] = nil
 			end
 			DailyTodos_Updates = 0
 		end
