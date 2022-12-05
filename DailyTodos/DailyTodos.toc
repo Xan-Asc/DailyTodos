@@ -1,10 +1,10 @@
 ## Title: Daily To-Do's
 ## Notes: Tracks your repeated daily tasks so you don't forget!
 ## Interface: 30500
-## SavedVariables: DailyTodoDB
+## SavedVariables: DailyTodoDB, DailyTodoQuests
 ## Version: 1.9a
 ## Author: Caedus.  Rewrite by Xan
-## X-Max-Interface: 40100
+## X-Max-Interface: 30500
 ## X-Embeds: Ace3, LibDataBroker, LibDBIcon, LibCrayon
 
 Libs\LibStub\LibStub.lua
@@ -25,7 +25,6 @@ Libs\LibDBIcon\LibDBIcon-1.0.lua
 Libs\LibCrayon-3.0\lib.xml
 
 NPCs.lua
-Quests.lua
 Factions.lua
 Variables.lua
 DailyTodos.lua

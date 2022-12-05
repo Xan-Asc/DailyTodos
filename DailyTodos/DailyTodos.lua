@@ -166,6 +166,10 @@ local quest_names = _G.setmetatable({}, {
 function DTD:OnInitialize()
     -- Called when the addon is loaded
     DTD_Database = LibStub("AceDB-3.0"):New("DailyTodoDB",defaults)
+
+	if DailyTodoQuests == nil then
+        DailyTodoQuests = {}
+    end
     
     DTD:CreateMinimapButton()
 	
@@ -179,7 +183,6 @@ function DTD:OnInitialize()
 end
 
 function DTD:OnEnable()
-
     -- Called when the addon is enabled
     self:Print("Daily To-Do's enabled. /dtd to configure.")
 	
@@ -284,6 +287,9 @@ function DTD:DrawGroup1(container)
 					DTD_Database.profile.factionsTracking[id] = true
 				else
 					DTD_Database.profile.factionsTracking[id] = nil
+                    for _, qid in pairs(v['q']) do
+                        DailyTodoQuests[qid] = nil
+                    end
 				end
 				DTD:ReloadTrackingFrame()
 			end)
@@ -644,8 +650,20 @@ function DTD:CreateTrackingFrame()
 				end
 				local cat = dailyQuests[id] -- TODO
 ]]    			for n, q in pairs(v['q']) do
-    				local quest = dailyQuests[q]
-					-- TODO filter by character level UnitLevel("player")
+    				local quest = DailyTodoQuests[q]
+                    if quest == nil then
+                        local loaded, reason = LoadAddOn("DailyTodos_Quests")
+
+                        if not loaded then
+                            print("Failed to load quest DB. " .. reason)
+                        else
+                            quest = dtd_dailyQuests[q]
+                            DailyTodoQuests[q] = dtd_dailyQuests[q]
+                        end
+
+                    end
+
+            		-- TODO filter by character level UnitLevel("player")
     				-- If the quest is the right faction, or neutral and the quest is not one selected to be ignored and is not a holiday quest
 					if quest["s"] == DTD_Database.profile.friendly or quest["s"] == nil then
 					if quest["c"] ~= 1008 and DTD_Database.profile.dontTrack[q] ~= true then

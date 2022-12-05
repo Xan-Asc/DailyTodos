@@ -56,7 +56,7 @@ function bp_GetCurrencyInfo(idx) -- name, texture
 end
 
 function DTD_Tooltips:CreateQuestTooltip(parent,id)
-	quest = dailyQuests[id]
+	quest = DailyTodoQuests[id]
 	local tooltip = QTip:Acquire("DTDTooltip",2,"LEFT","LEFT")
 	DTD.tooltip = tooltip
 	
