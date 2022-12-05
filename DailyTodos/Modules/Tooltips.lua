@@ -1,6 +1,7 @@
 DTD_Tooltips = DTD:NewModule("Tooltips", "AceEvent-3.0")
 
 local QTip = LibStub('LibQTip-1.0')
+-- TODO remove the crayon
 local Crayon = LibStub("LibCrayon-3.0")
 
 local TooltipIconSize = 16
@@ -44,7 +45,6 @@ function bp_GetCurrencyInfo(idx) -- name, texture
 			{301, "Emblem of Triumph", "spell_holy_summonchampion"},
 			{321, "Isle of Conquest Mark of Honor", "INV_Jewelry_Necklace_27"},
 			{341, "Emblem of Frost", "inv_misc_frostemblem_01"},
-			{395, "Badge of Justice", "Spell_Holy_ChampionsBond"},
 			{51, "Mystic Rune", "inv_custom_ReforgeToken"},
 			{364, "Mark of Ascension", "Mail_GMIcon"}
 		}
@@ -58,11 +58,12 @@ end
 function DTD_Tooltips:CreateQuestTooltip(parent,id)
 	quest = DailyTodoQuests[id]
 	local tooltip = QTip:Acquire("DTDTooltip",2,"LEFT","LEFT")
+	tooltip:SetBackdropColor(0.05,0.05,0.05)
+	tooltip:SetBackdropBorderColor(0.75,0.75,0.75)
 	DTD.tooltip = tooltip
 	
 	-- Title the tooltip with the quest name
 	tooltip:AddHeader(quest["n"])
-	tooltip:AddSeparator()
 	
 	-- ClasslessDB ID
 	if id > 20 then
@@ -71,8 +72,8 @@ function DTD_Tooltips:CreateQuestTooltip(parent,id)
 	
 	tooltip:AddLine()
 	
-	tooltip:AddHeader("Rewards:")
 	tooltip:AddSeparator()
+	tooltip:AddHeader("Rewards:")
 	
 		-- Show the monetary award
 		if quest["m"] ~= nil then
@@ -149,16 +150,24 @@ function DTD_Tooltips:CreateQuestTooltip(parent,id)
 		end
 	
 	-- Show other characters
-	tooltip:AddHeader("Other Characters:")
 	tooltip:AddSeparator()
-	for name, side in pairs(DTD_Database.realm.side) do
+	tooltip:AddHeader("Other Characters:")
+	-- for stable name order
+	local names = {}
+    for k in pairs(DTD_Database.realm.side) do
+        table.insert(names, k)
+    end
+    table.sort(names)
+	for _, name in pairs(names) do
+		local side = DTD_Database.realm.side[name]
 		if quest['s'] == nil or quest['s'] == side then
 			local tex = QUEST_NOT_COMPLETE
-			local nameText
+			local colorCode
+			-- set color of name based on faction
 			if side == 2 then
-				nameText = Crayon:Red(name)
+				colorCode = "FFFD4746"
 			else
-				nameText = Crayon:Blue(name)
+				colorCode = "FF787FF6"
 			end
 			if DTD_Database.realm.completedQuests[name][id] then
 				tex = QUEST_COMPLETE
@@ -166,12 +175,19 @@ function DTD_Tooltips:CreateQuestTooltip(parent,id)
 				tex = QUEST_ACCEPTED
 			end
 
-			tooltip:AddLine(format(TEXTURE_LINK_FORMAT,tex,12,12,-2)..nameText)
+			local lineN, columnN = tooltip:AddLine(format(TEXTURE_LINK_FORMAT,tex,12,12,-2).."|c"..colorCode..name.."|r")
+			-- alternate line background colors
+			if lineN % 2 == 1 then
+				tooltip:SetLineColor(lineN,0.1,0.1,0.1)
+			else
+				tooltip:SetLineColor(lineN,0.15,0.15,0.15)
+			end
 		end
 	end
 	
 	tooltip:AddLine()
-	tooltip:AddLine(Crayon:Red("Right click to blacklist."))
+	tooltip:AddSeparator()
+	tooltip:AddLine("|cFFFF4E4ERight click to blacklist.|r")
 	
 	if parent then
 		tooltip:SmartAnchorTo(parent)
