@@ -44,7 +44,9 @@ function bp_GetCurrencyInfo(idx) -- name, texture
 			{301, "Emblem of Triumph", "spell_holy_summonchampion"},
 			{321, "Isle of Conquest Mark of Honor", "INV_Jewelry_Necklace_27"},
 			{341, "Emblem of Frost", "inv_misc_frostemblem_01"},
-			{395, "Badge of Justice", "Spell_Holy_ChampionsBond"}
+			{395, "Badge of Justice", "Spell_Holy_ChampionsBond"},
+			{51, "Mystic Rune", "inv_custom_ReforgeToken"},
+			{364, "Mark of Ascension", "Mail_GMIcon"}
 		}
     for k, v in pairs(t) do
         if idx == v[1] then

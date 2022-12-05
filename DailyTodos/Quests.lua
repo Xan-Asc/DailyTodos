@@ -35,6 +35,12 @@ dailyQuests = {
 	{category = 5287,category2 = 0,daily = 1,id = 26452,money = 94000,name = "Gurubashi Challenge",reqlevel = 30,side = 3,type = 41,wflags = 130}
 },
 -- =============================================
+--				Ascension Dailies
+-- =============================================
+[12] = {
+	{category = 5286,category2 = 0,daily = 1,id = 1903519,currencyrewards = {{51,20},{364,100}},name = "Forging Mystic Power",reqlevel = 60,side = 3,wflags = 130}
+},
+-- =============================================
 --				ARGENT CRUSADE
 -- =============================================
 [1106] = {
@@ -51,46 +57,6 @@ dailyQuests = {
 	{category = -241,category2 = 7,daily = 1,id = 13846,level = 80,name = "Contributin' To The Cause",reprewards = {{1106,100}},reqlevel = 77,side = 3,wflags = 2,reputation = 100},
 	{category = -241,category2 = 7,currencyrewards = {{241,1}},daily = 1,id = 13861,itemchoices = {{46114,1},{45724,1}},level = 80,money = 74000,name = "Battle Before The Citadel",reprewards = {{1106,250},{1094,250}},reqlevel = 77,side = 1,wflags = 2,xp = 22050,reputation = 250},
 	{category = -241,category2 = 7,currencyrewards = {{241,1}},daily = 1,id = 13862,itemchoices = {{46114,1},{45724,1}},level = 80,money = 74000,name = "Battle Before The Citadel",reprewards = {{1106,250},{1124,250}},reqlevel = 77,side = 2,wflags = 2,xp = 22050,reputation = 250},
-},
-
--- =============================================
---				BARADIN'S WARDENS
--- =============================================
-[1177] = {
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27944,level = 85,money = 259400,name = "Thinning the Brood",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27948,level = 85,money = 259400,name = "A Sticky Task",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27949,level = 85,money = 259400,name = "The Forgotten",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27966,level = 85,money = 259400,name = "Salvaging the Remains",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27967,level = 85,money = 259400,name = "First Lieutenant Connor",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27970,level = 85,money = 259400,name = "Captain P. Harris",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27971,level = 85,money = 259400,name = "Rattling Their Cages",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27972,level = 85,money = 259400,name = "Boosting Morale",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27973,level = 85,money = 259400,name = "Watch Out For Splinters!",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27975,level = 85,money = 259400,name = "WANTED =  Foreman Wellson",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27978,level = 85,money = 259400,name = "Ghostbuster",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27987,level = 85,money = 259400,name = "Cannonball!",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27991,level = 85,money = 259400,name = "Taking the Overlook Back",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 27992,level = 85,money = 259400,name = "Magnets, How Do They Work?",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28046,level = 85,money = 259400,name = "Finish The Job",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,2}},daily = 1,id = 28050,level = 85,money = 259400,name = "Shark Tank",reprewards = {{1177,350}},reqlevel = 85,side = 1,type = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28059,level = 85,money = 259400,name = "Claiming The Keep",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28063,level = 85,money = 259400,name = "Leave No Weapon Behind",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28065,level = 85,money = 259400,name = "Walk A Mile In Their Shoes",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28117,level = 85,money = 188000,name = "Clearing the Depths",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28118,level = 85,money = 188000,name = "The Imprisoned Archmage",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28120,level = 85,money = 353400,name = "Learning From The Past",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28122,level = 85,money = 94000,name = "A Huge Problem",reprewards = {{1177,250}},reqlevel = 85,side = 1,type = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28130,level = 85,money = 259400,name = "Not The Friendliest Town",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28137,level = 85,money = 259400,name = "Teach A Man To Fish.... Or Steal",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28162,level = 85,money = 94000,name = "Swamp Bait",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28163,level = 85,money = 259400,name = "The Leftovers",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28165,level = 85,money = 188000,name = "D-Block",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28185,level = 85,money = 188000,name = "Svarnos",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28186,level = 85,money = 188000,name = "Cursed Shackles",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28188,level = 85,money = 188000,name = "Prison Revolt",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28223,level = 85,money = 188000,name = "The Warden",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28232,level = 85,money = 188000,name = "Food From Below",reprewards = {{1177,350}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28275,level = 85,money = 259400,name = "Bomb's Away!",reprewards = {{1177,250}},reqlevel = 85,side = 1,wflags = 2,xp = 69400,reputation = 250},
 },
 
 -- =============================================
@@ -129,17 +95,6 @@ dailyQuests = {
 	{category = -241,category2 = 7,daily = 1,id = 13855,itemrewards = {{44987,1}},level = 80,money = 74000,name = "At The Enemy's Gates",reprewards = {{69,250},{1094,250}},reqlevel = 77,side = 1,wflags = 2,xp = 22050,reputation = 250},
 	{category = -1008,category2 = 9,daily = 1,id = 14054,itemchoices = {{46723,1},{46800,1},{44785,1},{46824,1},{44788,1},{44812,1}},name = "Easy As Pie",reprewards = {{69,150}},reqlevel = 1,side = 1,wflags = 10,reputation = 150},
 	{category = 406,category2 = 1,daily = 1,id = 25671,level = 28,money = 5000,name = "Thinning the Horde",reprewards = {{69,350}},reqlevel = 25,side = 1,wflags = 130,xp = 2850,reputation = 350},
-},
-
--- =============================================
---				Dragonmaw Clan
--- =============================================
-[1172] = {
-	{category = 4922,category2 = 0,daily = 1,id = 28871,level = 84,money = 90000,name = "Crushing the Wildhammer",reprewards = {{1172,250}},reqlevel = 84,side = 2,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28872,level = 84,money = 90000,name = "Total War",reprewards = {{1172,250}},reqlevel = 84,side = 2,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28873,level = 84,money = 90000,name = "Another Maw to Feed",reprewards = {{1172,250}},reqlevel = 84,side = 2,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28874,level = 84,money = 90000,name = "Hook 'em High",reprewards = {{1172,250}},reqlevel = 84,side = 2,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28875,level = 84,money = 180000,name = "Bring Down the High Shaman",reprewards = {{1172,350}},reqlevel = 84,side = 2,type = 1,wflags = 2,xp = 69000,reputation = 350},
 },
 
 -- =============================================
@@ -185,46 +140,6 @@ dailyQuests = {
 	{category = -241,category2 = 7,daily = 1,id = 13749,itemrewards = {{44987,1}},level = 80,money = 74000,name = "A Valiant's Field Training",reprewards = {{54,250},{1094,250}},reqlevel = 77,side = 1,wflags = 2,xp = 22050,reputation = 250},
 	{category = -241,category2 = 7,daily = 1,id = 13750,itemrewards = {{44987,1}},level = 80,money = 74000,name = "The Grand Melee",reprewards = {{54,250},{1094,250}},reqlevel = 77,side = 1,wflags = 2,xp = 22050,reputation = 250},
 	{category = -241,category2 = 7,daily = 1,id = 13852,itemrewards = {{44987,1}},level = 80,money = 74000,name = "At The Enemy's Gates",reprewards = {{54,250},{1094,250}},reqlevel = 77,side = 1,wflags = 2,xp = 22050,reputation = 250},
-},
-
--- =============================================
---				Hellscream's Reach
--- =============================================
-[1178] = {
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28657,level = 85,money = 94000,name = "A Huge Problem",reprewards = {{1178,250}},reqlevel = 85,side = 2,type = 1,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28658,level = 85,money = 94000,name = "Swamp Bait",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28659,level = 85,money = 94000,name = "The Leftovers",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28660,level = 85,money = 188000,name = "Clearing the Depths",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28661,level = 85,money = 188000,name = "The Imprisoned Archmage",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28662,level = 85,money = 353400,name = "Learning From The Past",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28663,level = 85,money = 188000,name = "D-Block",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28664,level = 85,money = 188000,name = "Svarnos",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28665,level = 85,money = 188000,name = "Cursed Shackles",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28668,level = 85,money = 188000,name = "Prison Revolt",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28669,level = 85,money = 188000,name = "The Warden",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5095,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28670,level = 85,money = 188000,name = "Food From Below",reprewards = {{1178,350}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28678,level = 85,money = 259400,name = "Captain P. Harris",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28679,level = 85,money = 259400,name = "Rattling Their Cages",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28680,level = 85,money = 259400,name = "Boosting Morale",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,2}},daily = 1,id = 28681,level = 85,money = 259400,name = "Shark Tank",reprewards = {{1178,350}},reqlevel = 85,side = 2,type = 1,wflags = 2,xp = 69400,reputation = 350},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28682,level = 85,money = 259400,name = "Claiming The Keep",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28683,level = 85,money = 259400,name = "Thinning the Brood",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28684,level = 85,money = 259400,name = "A Sticky Task",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28685,level = 85,money = 259400,name = "Leave No Weapon Behind",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28686,level = 85,money = 259400,name = "Not The Friendliest Town",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28687,level = 85,money = 259400,name = "Teach A Man To Fish.... Or Steal",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28689,level = 85,money = 259400,name = "The Forgotten",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28690,level = 85,money = 259400,name = "Salvaging the Remains",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28691,level = 85,money = 259400,name = "First Lieutenant Connor",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28692,level = 85,money = 259400,name = "Magnets, How Do They Work?",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28693,level = 85,money = 259400,name = "Finish The Job",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28694,level = 85,money = 259400,name = "Watch Out For Splinters!",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28695,level = 85,money = 259400,name = "WANTED =  Foreman Wellson",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28696,level = 85,money = 259400,name = "Bomb's Away!",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28697,level = 85,money = 259400,name = "Ghostbuster",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28698,level = 85,money = 259400,name = "Cannonball!",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28700,level = 85,money = 259400,name = "Taking the Overlook Back",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
-	{category = 5389,category2 = 11,currencyrewards = {{391,1}},daily = 1,id = 28721,level = 85,money = 259400,name = "Walk A Mile In Their Shoes",reprewards = {{1178,250}},reqlevel = 85,side = 2,wflags = 2,xp = 69400,reputation = 250},
 },
 
 -- =============================================
@@ -340,14 +255,6 @@ dailyQuests = {
 	{category = -1008,category2 = 9,daily = 1,id = 14061,itemchoices = {{46723,1},{46800,1},{44785,1},{46824,1},{44788,1},{44812,1}},name = "Can't Get Enough Turkey",reprewards = {{76,150}},reqlevel = 1,side = 2,wflags = 10,reputation = 150},
 	{category = -1008,category2 = 9,daily = 1,id = 14062,itemchoices = {{46723,1},{46800,1},{44785,1},{46824,1},{44788,1},{44812,1}},name = "Don't Forget The Stuffing!",reprewards = {{76,150}},reqlevel = 1,side = 2,wflags = 10,reputation = 150},
 	{category = 406,category2 = 1,daily = 1,id = 26009,level = 27,money = 4500,name = "Seek and Destroy",reprewards = {{76,350}},reqlevel = 24,side = 2,wflags = 130,xp = 3300,reputation = 350},
-},
-
--- =============================================
---				Ramkahem
--- =============================================
-[1173] = {
-	{category = 5034,category2 = 1,daily = 1,id = 28250,level = 83,money = 65000,name = "Thieving Little Pluckers",reprewards = {{1173,150}},reqlevel = 83,side = 3,wflags = 130,xp = 32950,reputation = 150},
-	{category = 5034,category2 = 1,daily = 1,id = 28736,level = 83,money = 86000,name = "Fire From the Sky",reprewards = {{1173,250}},reqlevel = 83,side = 3,wflags = 2,xp = 43900,reputation = 250},
 },
 
 -- =============================================
@@ -590,22 +497,6 @@ dailyQuests = {
 },
 
 -- =============================================
---				Therazane
--- =============================================
-[1171] = {
-	{category = 5042,category2 = 11,daily = 1,id = 26710,level = 83,money = 86000,name = "Lost In The Deeps",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 27046,level = 83,money = 86000,name = "Fear of Boring",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 27047,level = 83,money = 86000,name = "Motes",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 27048,level = 83,money = 86000,name = "Underground Economy",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 27049,level = 83,money = 86000,name = "Soft Rock",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 27050,level = 83,money = 86000,name = "Fungal Fury",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 27051,level = 83,money = 86000,name = "Through Persistence",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-	{category = 5042,category2 = 11,daily = 1,id = 28390,level = 83,money = 172000,name = "Glop, Son of Glop",reprewards = {{1171,350}},reqlevel = 81,side = 3,wflags = 2,xp = 54900,reputation = 350},
-	{category = 5042,category2 = 11,daily = 1,id = 28391,level = 83,money = 172000,name = "The Restless Brood",reprewards = {{1171,350}},reqlevel = 81,side = 3,wflags = 2,xp = 54900,reputation = 350},
-	{category = 5042,category2 = 11,daily = 1,id = 28488,level = 83,money = 86000,name = "Beneath the Surface",reprewards = {{1171,250}},reqlevel = 81,side = 3,wflags = 2,xp = 43900,reputation = 250},
-},
-
--- =============================================
 --				Thrallmar
 -- =============================================
 [947] = {
@@ -673,16 +564,5 @@ dailyQuests = {
 	{category = 210,category2 = 10,daily = 1,id = 13310,level = 80,money = 74000,name = "Assault by Air",reprewards = {{1085,250}},reqlevel = 77,side = 2,wflags = 2,xp = 22050,reputation = 250},
 	{category = 210,category2 = 10,daily = 1,id = 13330,level = 80,money = 74000,name = "Blood of the Chosen",reprewards = {{1085,250}},reqlevel = 77,side = 2,wflags = 2,xp = 22050,reputation = 250},
 	{category = 210,category2 = 10,daily = 1,id = 13331,level = 80,money = 74000,name = "Keeping the Alliance Blind",reprewards = {{1085,250}},reqlevel = 77,side = 2,wflags = 2,xp = 22050,reputation = 250},
-},
-
--- =============================================
---				Wildhammer Clan
--- =============================================
-[1174] = {
-	{category = 4922,category2 = 0,daily = 1,id = 28860,level = 84,money = 90000,name = "Keeping the Dragonmaw at Bay",reprewards = {{1174,250}},reqlevel = 84,side = 1,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28861,level = 84,money = 90000,name = "Fight Like a Wildhammer",reprewards = {{1174,250}},reqlevel = 84,side = 1,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28862,level = 84,money = 90000,name = "Never Leave a Dinner Behind",reprewards = {{1174,250}},reqlevel = 84,side = 1,wflags = 2,xp = 55200,reputation = 250},
-	{category = 4922,category2 = 0,daily = 1,id = 28863,level = 84,money = 180000,name = "Warlord Halthar is Back",reprewards = {{1174,350}},reqlevel = 84,side = 1,type = 1,wflags = 2,xp = 69000,reputation = 350},
-	{category = 4922,category2 = 0,daily = 1,id = 28864,level = 84,money = 90000,name = "Beer Run",reprewards = {{1174,250}},reqlevel = 84,side = 1,wflags = 2,xp = 55200,reputation = 250},
 }
 }

@@ -14,9 +14,16 @@
 -- 		Classic					: 1118
 -- 		The Burning Crusade 	: 980
 -- 		Wrath of the Lich King 	: 1097
--- 		Cataclysm 				: 1162
 
 factions = {
+-- Ascension Dailies
+{
+	category = 2,
+	category2 = 1,
+	expansion = 2,
+	id = 12,
+	name = "Ascension Daily",
+},
 -- Alliance Fishing Dailies
 {
 	category = 2,
@@ -72,24 +79,7 @@ factions = {
 	side = 2,
 },
 
---[[{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1037,
-	name = "Alliance Vanguard",
-	side = 1,
-	quests = {
-		
-	},
-},]]--
-{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1106,
-	name = "Argent Crusade",
-},
+
 --[[{
 	category = 0,
 	category2 = 1118,
@@ -104,14 +94,6 @@ factions = {
 	id = 1012,
 	name = "Ashtongue Deathsworn",
 },]]--
-{
-	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1177,
-	name = "Baradin's Wardens",
-	side = 1,
-},
 --[[{
 	category = 67,
 	category2 = 1118,
@@ -193,21 +175,6 @@ factions = {
 	name = "Exodar",
 	side = 1,
 },
-{
-	category = 1037,
-	category2 = 1097,
-	expansion = 2,
-	id = 1068,
-	name = "Explorers' League",
-	side = 1,
-},
-{
-	category = 1117,
-	category2 = 1097,
-	expansion = 2,
-	id = 1104,
-	name = "Frenzyheart Tribe",
-},
 --[[{
 	category = 892,
 	category2 = 1118,
@@ -244,13 +211,6 @@ factions = {
 },
 --[[{
 	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1158,
-	name = "Guardians of Hyjal",
-},]]--
---[[{
-	category = 0,
 	category2 = 1169,
 	expansion = 3,
 	id = 1168,
@@ -258,27 +218,11 @@ factions = {
 },]]--
 {
 	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1178,
-	name = "Hellscream's Reach",
-	side = 2,
-},
-{
-	category = 0,
 	category2 = 980,
 	expansion = 1,
 	id = 946,
 	name = "Honor Hold",
 	side = 1,
-},
-{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1052,
-	name = "Horde Expedition",
-	side = 2,
 },
 --[[{
 	category = 0,
@@ -299,20 +243,6 @@ factions = {
 	expansion = 1,
 	id = 989,
 	name = "Keepers of Time",
-},
---[[{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1090,
-	name = "Kirin Tor",
-},]]--
-{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1098,
-	name = "Knights of the Ebon Blade",
 },
 {
 	category = 0,
@@ -355,13 +285,6 @@ factions = {
 	id = 76,
 	name = "Orgrimmar",
 	side = 2,
-},
-{
-	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1173,
-	name = "Ramkahen",
 },
 --[[{
 	category = 169,
@@ -446,13 +369,6 @@ factions = {
 },]]--
 --[[{
 	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1156,
-	name = "The Ashen Verdict",
-},]]--
---[[{
-	category = 0,
 	category2 = 980,
 	expansion = 1,
 	id = 933,
@@ -465,36 +381,6 @@ factions = {
 	name = "The Defilers",
 	side = 2,
 },]]--
---[[{
-	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1135,
-	name = "The Earthen Ring",
-},]]--
-{
-	category = 1037,
-	category2 = 1097,
-	expansion = 2,
-	id = 1126,
-	name = "The Frostborn",
-	side = 1,
-},
---[[{
-	category = 1052,
-	category2 = 1097,
-	expansion = 2,
-	id = 1067,
-	name = "The Hand of Vengeance",
-	side = 2
-},]]--
-{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1073,
-	name = "The Kalu'ak"
-},
 --[[{
 	category = 891,
 	category2 = 1118,
@@ -509,13 +395,6 @@ factions = {
 	id = 941,
 	name = "The Mag'har",
 	side = 2
-},
-{
-	category = 1117,
-	category2 = 1097,
-	expansion = 2,
-	id = 1105,
-	name = "The Oracles",
 },
 --[[{
 	category = 0,
@@ -538,37 +417,6 @@ factions = {
 	id = 935,
 	name = "The Sha'tar",
 },]]--
-{
-	category = 1037,
-	category2 = 1097,
-	expansion = 2,
-	id = 1094,
-	name = "The Silver Covenant",
-	side = 1,
-},
-{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1119,
-	name = "The Sons of Hodir",
-},
-{
-	category = 1052,
-	category2 = 1097,
-	expansion = 2,
-	id = 1124,
-	name = "The Sunreavers",
-	side = 2,
-},
---[[{
-	category = 1052,
-	category2 = 1097,
-	expansion = 2,
-	id = 1064,
-	name = "The Taunka",
-	side = 2,
-},]]--
 --[[{
 	category = 0,
 	category2 = 980,
@@ -576,20 +424,6 @@ factions = {
 	id = 967,
 	name = "The Violet Eye",
 },]]--
-{
-	category = 0,
-	category2 = 1097,
-	expansion = 2,
-	id = 1091,
-	name = "The Wyrmrest Accord",
-},
-{
-	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1171,
-	name = "Therazane",
-},
 --[[{
 	category = 0,
 	category2 = 1118,
@@ -632,6 +466,105 @@ factions = {
 	name = "Undercity",
 	side = 2,
 },
+
+
+{
+	category = 0,
+	category2 = 0,
+	expansion = 3,
+	id = 11,
+	name = "Gurubashi Arena",
+},
+--[[  Wotlk Factions
+{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1106,
+	name = "Argent Crusade",
+},
+{
+	category = 1037,
+	category2 = 1097,
+	expansion = 2,
+	id = 1068,
+	name = "Explorers' League",
+	side = 1,
+},
+{
+	category = 1117,
+	category2 = 1097,
+	expansion = 2,
+	id = 1104,
+	name = "Frenzyheart Tribe",
+},
+{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1052,
+	name = "Horde Expedition",
+	side = 2,
+},
+{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1098,
+	name = "Knights of the Ebon Blade",
+},
+{
+	category = 1037,
+	category2 = 1097,
+	expansion = 2,
+	id = 1126,
+	name = "The Frostborn",
+	side = 1,
+},
+{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1073,
+	name = "The Kalu'ak"
+},
+{
+	category = 1117,
+	category2 = 1097,
+	expansion = 2,
+	id = 1105,
+	name = "The Oracles",
+},
+{
+	category = 1037,
+	category2 = 1097,
+	expansion = 2,
+	id = 1094,
+	name = "The Silver Covenant",
+	side = 1,
+},
+{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1119,
+	name = "The Sons of Hodir",
+},
+{
+	category = 1052,
+	category2 = 1097,
+	expansion = 2,
+	id = 1124,
+	name = "The Sunreavers",
+	side = 2,
+},
+{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1091,
+	name = "The Wyrmrest Accord",
+},
 {
 	category = 1037,
 	category2 = 1097,
@@ -647,30 +580,50 @@ factions = {
 	id = 1085,
 	name = "Warsong Offensive",
 	side = 2,
-},
+},]]--
+
+-- Already commented out WotLK factions
 --[[{
-	category = 892,
-	category2 = 1118,
-	id = 889,
-	name = "Warsong Outriders",
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1037,
+	name = "Alliance Vanguard",
+	side = 1,
+	quests = {
+		
+	},
+},]]--
+--[[{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1090,
+	name = "Kirin Tor",
+},]]--
+--[[{
+	category = 0,
+	category2 = 1097,
+	expansion = 2,
+	id = 1156,
+	name = "The Ashen Verdict",
+},]]--
+--[[{
+	category = 1052,
+	category2 = 1097,
+	expansion = 2,
+	id = 1064,
+	name = "The Taunka",
 	side = 2,
 },]]--
-{
-	category = 0,
-	category2 = 1162,
-	expansion = 3,
-	id = 1174,
-	name = "Wildhammer Clan",
-	side = 1,
-},
-
-{
-	category = 0,
-	category2 = 0,
-	expansion = 3,
-	id = 11,
-	name = "Gurubashi Arena",
-},
+--[[{
+	category = 1052,
+	category2 = 1097,
+	expansion = 2,
+	id = 1067,
+	name = "The Hand of Vengeance",
+	side = 2
+},]]--
 
 --[[{
 	category = 0,
